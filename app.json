@@ -1,0 +1,6 @@
+{
+  "name": "Mementia backend",
+  "description": "Application to store memories",
+  "image": "heroku/java",
+  "addons": [ "heroku-postgresql" ]
+}
