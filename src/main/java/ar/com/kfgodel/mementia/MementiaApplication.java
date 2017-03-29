@@ -3,6 +3,9 @@ package ar.com.kfgodel.mementia;
 import ar.com.kfgodel.actions.descriptor.BuscadorDeFuncionesTipoAccion;
 import ar.com.kfgodel.dependencies.api.DependencyInjector;
 import ar.com.kfgodel.dependencies.impl.DependencyInjectorImpl;
+import ar.com.kfgodel.graphdb.api.GraphDb;
+import ar.com.kfgodel.graphdb.impl.EmbeddedNeo4jConfiguration;
+import ar.com.kfgodel.graphdb.impl.EmbeddedNeo4jDb;
 import ar.com.kfgodel.orm.api.HibernateOrm;
 import ar.com.kfgodel.orm.api.config.DbCoordinates;
 import ar.com.kfgodel.orm.impl.HibernateFacade;
@@ -19,6 +22,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
 
 /**
  * This type represents the whole application as a single object.<br>
@@ -40,6 +45,10 @@ public class MementiaApplication implements Application {
   @Override
   public HibernateOrm getOrmModule() {
     return this.injector.getImplementationFor(HibernateOrm.class).get();
+  }
+
+  public GraphDb getGraphDb(){
+    return this.injector.getImplementationFor(GraphDb.class).get();
   }
 
   @Override
@@ -76,6 +85,7 @@ public class MementiaApplication implements Application {
   @Override
   public void stop() {
     LOG.info("Stopping APP");
+    this.getGraphDb().stop();
     this.getWebServerModule().stop();
     this.getOrmModule().close();
   }
@@ -91,8 +101,17 @@ public class MementiaApplication implements Application {
     this.injector.bindTo(TypeTransformer.class, createTransformer());
     this.injector.bindTo(BuscadorDeFuncionesTipoAccion.class, BuscadorDeFuncionesTipoAccion.create());
     this.injector.bindTo(ObjectMapper.class, crearObjectMapper());
+    this.injector.bindTo(GraphDb.class, crearBaseDeGrafos());
 
     registerCleanupHook();
+  }
+
+  private GraphDb crearBaseDeGrafos() {
+    EmbeddedNeo4jConfiguration configuration = EmbeddedNeo4jConfiguration.create()
+      .locatedIn(new File("neodb"));
+    GraphDb base = EmbeddedNeo4jDb.create(configuration);
+    base.start();
+    return base;
   }
 
   private ObjectMapper crearObjectMapper() {
