@@ -1,6 +1,6 @@
 package convention.rest.api;
 
-import ar.com.kfgodel.mementia.Application;
+import ar.com.kfgodel.mementia.Aplicacion;
 
 import javax.inject.Inject;
 import javax.ws.rs.Path;
@@ -16,7 +16,7 @@ public class ApiV1Root {
 
   // Injected by jetty/jersey H2k internal binder (which only knwons the application)
   @Inject
-  private Application application;
+  private Aplicacion application;
 
   private MessageResource messages;
 

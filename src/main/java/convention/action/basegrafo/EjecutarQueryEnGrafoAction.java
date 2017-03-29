@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -16,15 +17,25 @@ import java.util.stream.Collectors;
  * Created by kfgodel on 14/11/16.
  */
 @Resource(name = "EJECUTAR/query")
-public class EjecutarQueryEnGrafoAction implements Function<PedidoDeEjecucionDeQuery, List<Map<String, Object>>> {
+public class EjecutarQueryEnGrafoAction implements Function<PedidoDeEjecucionDeQuery, List<Map<String, String>>> {
 
   @Override
-  public List<Map<String, Object>> apply(PedidoDeEjecucionDeQuery pedido) {
+  public List<Map<String, String>> apply(PedidoDeEjecucionDeQuery pedido) {
     String query = pedido.getQuery();
-    List<Map<String, Object>> resultados = graphDb.ensureTransactionFor((transaction) -> GetResultRows.create(query)
+    List<Map<String, String>> resultados = graphDb.ensureTransactionFor((transaction) ->
+      GetResultRows.create(query)
       .doWith(transaction)
+      .map(this::aplanarResultados)
       .collect(Collectors.toList()));
     return resultados;
+  }
+
+  private Map<String, String> aplanarResultados(Map<String, Object> stringObjectMap) {
+    Map<String, String> mapaAplanado = new TreeMap<>();
+    stringObjectMap.forEach( (clave, valor) -> {
+      mapaAplanado.put(clave, String.valueOf(valor));
+    });
+    return mapaAplanado;
   }
 
   @Inject

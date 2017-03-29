@@ -31,7 +31,7 @@ import java.io.File;
  * <p/>
  * Created by kfgodel on 22/03/15.
  */
-public class MementiaApplication implements Application {
+public class MementiaApplication implements Aplicacion {
   public static Logger LOG = LoggerFactory.getLogger(MementiaApplication.class);
 
   private ProceduresConfiguration config;
@@ -66,7 +66,7 @@ public class MementiaApplication implements Application {
     return injector;
   }
 
-  public static Application create(ProceduresConfiguration config) {
+  public static Aplicacion create(ProceduresConfiguration config) {
     MementiaApplication application = new MementiaApplication();
     application.config = config;
     return application;
@@ -93,7 +93,7 @@ public class MementiaApplication implements Application {
   private void initialize() {
     this.injector = DependencyInjectorImpl.create();
     this.injector.bindTo(DependencyInjector.class, this.injector);
-    this.injector.bindTo(Application.class, this);
+    this.injector.bindTo(Aplicacion.class, this);
 
     this.injector.bindTo(HibernateOrm.class, createPersistenceLayer());
     // Web server depends on hibernate, so it needs to be created after hibernate
@@ -143,7 +143,7 @@ public class MementiaApplication implements Application {
       .listeningHttpOn(config.getHttpPort())
       .withInjections((binder) -> {
         //Make application the only jetty injectable dependency
-        binder.bind(this).to(Application.class);
+        binder.bind(this).to(Aplicacion.class);
       })
       .authenticatingWith(DatabaseAuthenticator.create(getOrmModule()));
     return JettyWebServer.createFor(serverConfig);
