@@ -5,6 +5,8 @@ import ar.com.kfgodel.actions.FrontendAction;
 import ar.com.kfgodel.actions.adapter.AdaptadorDeFuncionEnAccion;
 import ar.com.kfgodel.dependencies.api.DependencyInjector;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -23,6 +25,7 @@ import java.util.Optional;
 @Produces("application/json")
 @Consumes("application/json")
 public class MessageResource {
+  public static Logger LOG = LoggerFactory.getLogger(MessageResource.class);
 
   public static final String RECURSO_KEY = "recurso";
 
@@ -59,6 +62,7 @@ public class MessageResource {
   private Map<String, FrontendAction> inicializarAccionesPorRecurso() {
     Map<String, FrontendAction> accionesPorRecurso = new HashMap<>();
     List<FrontendAction> acciones = buscarAccionesEnElClasspath();
+    LOG.info("Found {} action types: {}", acciones.size(), acciones);
     acciones.forEach((accion) -> {
       accionesPorRecurso.put(accion.getNombreDeRecurso(), accion);
     });
