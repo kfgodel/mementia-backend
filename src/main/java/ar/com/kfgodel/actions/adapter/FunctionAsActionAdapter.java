@@ -1,6 +1,7 @@
 package ar.com.kfgodel.actions.adapter;
 
 import ar.com.kfgodel.actions.FrontendAction;
+import com.google.common.base.MoreObjects;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -13,8 +14,12 @@ public class FunctionAsActionAdapter implements FrontendAction {
 
   private Function<Map<String, Object>, Object> inputAdapter;
   private Function typedFunction;
+  public static final String typedFunction_FIELD = "typedFunction";
+
   private Function<Object, Object> outputAdapter;
   private String nombreDeRecurso;
+  public static final String nombreDeRecurso_FIELD = "nombreDeRecurso";
+
 
   @Override
   public Object apply(Map<String, Object> jsonInput) {
@@ -37,5 +42,13 @@ public class FunctionAsActionAdapter implements FrontendAction {
   @Override
   public String getNombreDeRecurso() {
     return nombreDeRecurso;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+      .add(nombreDeRecurso_FIELD, nombreDeRecurso)
+      .add(typedFunction_FIELD, typedFunction)
+      .toString();
   }
 }
