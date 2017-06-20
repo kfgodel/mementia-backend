@@ -4,9 +4,9 @@ import ar.com.kfgodel.graphdb.api.GraphDb;
 import ar.com.kfgodel.graphdb.api.operations.GraphDbTransaction;
 import ar.com.kfgodel.graphdb.api.operations.find.GetAllNodes;
 import ar.com.kfgodel.graphdb.api.operations.find.GetAllRelationships;
-import convention.rest.api.tos.EstadoDelGrafo;
-import convention.rest.api.tos.VistaDeNodoTo;
-import convention.rest.api.tos.VistaDeRelacionTo;
+import convention.rest.api.tos.EstadoDeNodoTo;
+import convention.rest.api.tos.EstadoDeRelacionTo;
+import convention.rest.api.tos.EstadoDelGrafoTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -18,25 +18,25 @@ import java.util.stream.Collectors;
  * Created by kfgodel on 09/04/17.
  */
 @Resource(name = "GET/grafo")
-public class BuscarEstadoDelGrafoAction implements Function<Void, EstadoDelGrafo> {
+public class BuscarEstadoDelGrafoAction implements Function<Void, EstadoDelGrafoTo> {
   @Override
-  public EstadoDelGrafo apply(Void aVoid) {
+  public EstadoDelGrafoTo apply(Void aVoid) {
     return graphDb.ensureTransactionFor((transaction)->{
-      List<VistaDeNodoTo> nodos = buscarNodos(transaction);
-      List<VistaDeRelacionTo> relaciones = buscarRelaciones(transaction);
-      return EstadoDelGrafo.create(nodos, relaciones);
+      List<EstadoDeNodoTo> nodos = buscarNodos(transaction);
+      List<EstadoDeRelacionTo> relaciones = buscarRelaciones(transaction);
+      return EstadoDelGrafoTo.create(nodos, relaciones);
     });
   }
 
-  private List<VistaDeRelacionTo> buscarRelaciones(GraphDbTransaction transaction) {
+  private List<EstadoDeRelacionTo> buscarRelaciones(GraphDbTransaction transaction) {
     return GetAllRelationships.create().doWith(transaction)
-      .mapNary(relacion -> VistaDeRelacionTo.create(relacion.getOrigin().getId(), relacion.getRelationshipType(), relacion.getDestination().getId()))
+      .mapNary(relacion -> EstadoDeRelacionTo.create(relacion.getOrigin().getId(), relacion.getRelationshipType(), relacion.getDestination().getId()))
       .collect(Collectors.toList());
   }
 
-  private List<VistaDeNodoTo> buscarNodos(GraphDbTransaction transaction) {
+  private List<EstadoDeNodoTo> buscarNodos(GraphDbTransaction transaction) {
     return GetAllNodes.create().doWith(transaction)
-      .mapNary(nodo -> VistaDeNodoTo.create(nodo.getId(), "Nodo " + nodo.getId()))
+      .mapNary(nodo -> EstadoDeNodoTo.create(nodo.getId(), "Nodo " + nodo.getId()))
       .collect(Collectors.toList());
   }
 
