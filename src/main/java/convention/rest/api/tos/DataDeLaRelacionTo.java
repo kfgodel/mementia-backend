@@ -5,9 +5,18 @@ package convention.rest.api.tos;
  */
 public class DataDeLaRelacionTo {
 
+  private String id;
   private Long source;
   private Long target;
   private String tipoDeRelacion;
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public Long getSource() {
     return source;
@@ -35,6 +44,7 @@ public class DataDeLaRelacionTo {
 
   public static DataDeLaRelacionTo create(Long idDeOrigen, String tipoRelacion, Long idDestino) {
     DataDeLaRelacionTo relacionTo = new DataDeLaRelacionTo();
+    relacionTo.id = "e"+idDeOrigen+"_"+idDestino;
     relacionTo.source = idDeOrigen;
     relacionTo.target = idDestino;
     relacionTo.tipoDeRelacion = tipoRelacion;

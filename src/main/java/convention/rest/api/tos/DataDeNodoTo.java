@@ -5,14 +5,14 @@ package convention.rest.api.tos;
  */
 public class DataDeNodoTo {
 
-  private Long id;
+  private String id;
   private String name;
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -26,7 +26,7 @@ public class DataDeNodoTo {
 
   public static DataDeNodoTo create(Long idDeNodo, String name) {
     DataDeNodoTo nodoTo = new DataDeNodoTo();
-    nodoTo.id = idDeNodo;
+    nodoTo.id = Long.toString(idDeNodo);
     nodoTo.name = name;
     return nodoTo;
   }
