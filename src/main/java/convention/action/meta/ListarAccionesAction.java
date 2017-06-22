@@ -37,8 +37,8 @@ public class ListarAccionesAction implements Function<Void, MetadataDeAccionesTo
       MetadataDeAccion.create("crearNodo", CrearNodoAction.class),
       MetadataDeAccion.create("crearRelacion", CrearRelacionAction.class)
         .conElParametro("idNodoOrigen","text")
-        .conElParametro("idNodoDestino","text")
         .conElParametro("tipoDeRelacion","text")
+        .conElParametro("idNodoDestino","text")
     );
   }
 
