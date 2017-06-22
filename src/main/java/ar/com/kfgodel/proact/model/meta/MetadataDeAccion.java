@@ -1,6 +1,5 @@
 package ar.com.kfgodel.proact.model.meta;
 
-import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.nary.api.Nary;
 import convention.rest.api.tos.meta.MetadataDeParametroTo;
 
@@ -31,9 +30,13 @@ public class MetadataDeAccion {
   }
 
   public String getRecurso() {
-    Nary<String> nombreDeRecurso = Diamond.of(claseDeLaAccion)
-      .annotations()
-      .filterNary(Resource.class::isInstance)
+
+
+    Nary<String> nombreDeRecurso =
+//      Diamond.of(claseDeLaAccion)
+//      .annotations()
+//      .filterNary(Resource.class::isInstance)
+    Nary.ofNullable(claseDeLaAccion.getAnnotation(Resource.class))
       .mapNary(Resource.class::cast)
       .mapNary(Resource::name);
     return nombreDeRecurso

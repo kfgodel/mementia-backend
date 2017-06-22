@@ -1,5 +1,7 @@
 package convention.rest.api.tos.meta;
 
+import com.google.common.base.MoreObjects;
+
 /**
  * Esta clase representa la informacion del parametro de una accion
  * Created by kfgodel on 21/06/17.
@@ -7,7 +9,19 @@ package convention.rest.api.tos.meta;
 public class MetadataDeParametroTo {
 
   private String nombre;
+  public static final String nombre_FIELD = "";
+
   private String tipo;
+  public static final String tipo_FIELD = "tipo";
+
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+      .add(nombre_FIELD, nombre)
+      .add(tipo_FIELD, tipo)
+      .toString();
+  }
 
   public String getNombre() {
     return nombre;
