@@ -14,7 +14,6 @@ public class MetadataDeParametroTo {
   private String tipo;
   public static final String tipo_FIELD = "tipo";
 
-
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)
