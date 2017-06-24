@@ -6,8 +6,8 @@ package convention.rest.api.tos;
 public class DataDeLaRelacionTo {
 
   private String id;
-  private Long source;
-  private Long target;
+  private String source;
+  private String target;
   private String tipoDeRelacion;
 
   public String getId() {
@@ -18,22 +18,6 @@ public class DataDeLaRelacionTo {
     this.id = id;
   }
 
-  public Long getSource() {
-    return source;
-  }
-
-  public void setSource(Long source) {
-    this.source = source;
-  }
-
-  public Long getTarget() {
-    return target;
-  }
-
-  public void setTarget(Long target) {
-    this.target = target;
-  }
-
   public String getTipoDeRelacion() {
     return tipoDeRelacion;
   }
@@ -42,11 +26,27 @@ public class DataDeLaRelacionTo {
     this.tipoDeRelacion = tipoDeRelacion;
   }
 
+  public String getSource() {
+    return source;
+  }
+
+  public void setSource(String source) {
+    this.source = source;
+  }
+
+  public String getTarget() {
+    return target;
+  }
+
+  public void setTarget(String target) {
+    this.target = target;
+  }
+
   public static DataDeLaRelacionTo create(Long idDeOrigen, String tipoRelacion, Long idDestino) {
     DataDeLaRelacionTo relacionTo = new DataDeLaRelacionTo();
     relacionTo.id = "e"+idDeOrigen+"_"+idDestino;
-    relacionTo.source = idDeOrigen;
-    relacionTo.target = idDestino;
+    relacionTo.source = Long.toString(idDeOrigen);
+    relacionTo.target = Long.toString(idDestino);
     relacionTo.tipoDeRelacion = tipoRelacion;
     return relacionTo;
   }
