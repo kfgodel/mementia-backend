@@ -15,9 +15,9 @@ public class EstadoDeRelacionTo {
     this.data = data;
   }
 
-  public static EstadoDeRelacionTo create(Long idDeOrigen, String tipoRelacion, Long idDestino) {
+  public static EstadoDeRelacionTo create(Long idDeRelacion, Long idDeOrigen, String tipoRelacion, Long idDestino) {
     EstadoDeRelacionTo relacionTo = new EstadoDeRelacionTo();
-    relacionTo.data = DataDeLaRelacionTo.create(idDeOrigen, tipoRelacion, idDestino);
+    relacionTo.data = DataDeLaRelacionTo.create(idDeRelacion, idDeOrigen, tipoRelacion, idDestino);
     return relacionTo;
   }
 

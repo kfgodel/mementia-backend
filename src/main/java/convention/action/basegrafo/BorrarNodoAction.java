@@ -19,12 +19,16 @@ import java.util.function.Function;
 public class BorrarNodoAction implements Function<ReferenciaABorrable, Void> {
   @Override
   public Void apply(ReferenciaABorrable referenciaABorrable) {
+    intentarBorrar(referenciaABorrable);
+    return null;
+  }
+
+  private void intentarBorrar(ReferenciaABorrable referenciaABorrable) {
     graphDb.ensureTransactionFor((transaction)->{
       GraphNode nodo = buscarNodoPorId(referenciaABorrable.getIdBorrable(), transaction);
       DeleteNode.create(nodo).doWith(transaction);
       return null;
     });
-    return null;
   }
 
   private GraphNode buscarNodoPorId(String idDeNodo, GraphDbTransaction transaction) {

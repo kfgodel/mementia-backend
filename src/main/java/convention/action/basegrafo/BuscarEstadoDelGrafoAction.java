@@ -30,7 +30,7 @@ public class BuscarEstadoDelGrafoAction implements Function<Void, EstadoDelGrafo
 
   private List<EstadoDeRelacionTo> buscarRelaciones(GraphDbTransaction transaction) {
     return GetAllRelationships.create().doWith(transaction)
-      .mapNary(relacion -> EstadoDeRelacionTo.create(relacion.getOrigin().getId(), relacion.getRelationshipType(), relacion.getDestination().getId()))
+      .mapNary(relacion -> EstadoDeRelacionTo.create(relacion.getId(), relacion.getOrigin().getId(), relacion.getRelationshipType(), relacion.getDestination().getId()))
       .collect(Collectors.toList());
   }
 

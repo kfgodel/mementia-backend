@@ -2,8 +2,7 @@ package convention.action.meta;
 
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.proact.model.meta.MetadataDeAccion;
-import convention.action.basegrafo.CrearNodoAction;
-import convention.action.basegrafo.CrearRelacionAction;
+import convention.action.basegrafo.*;
 import convention.rest.api.tos.meta.MetadataDeAccionTo;
 import convention.rest.api.tos.meta.MetadataDeAccionesTo;
 
@@ -38,7 +37,25 @@ public class ListarAccionesAction implements Function<Void, MetadataDeAccionesTo
       MetadataDeAccion.create("crearRelacion", CrearRelacionAction.class)
         .conElParametro("idNodoOrigen","palabra")
         .conElParametro("tipoDeRelacion","palabra")
-        .conElParametro("idNodoDestino","palabra")
+        .conElParametro("idNodoDestino","palabra"),
+      MetadataDeAccion.create("borrarNodo", BorrarNodoAction.class)
+        .conElParametro("idBorrable","palabra"),
+      MetadataDeAccion.create("borrarRelacion", BorrarRelacionAction.class)
+        .conElParametro("idBorrable","palabra"),
+      MetadataDeAccion.create("definirPropiedadEnNodo", DefinirPropiedadEnNodoAction.class)
+        .conElParametro("idDeNodo","palabra")
+        .conElParametro("nombreDePropiedad","palabra")
+        .conElParametro("valorDePropiedad","palabra"),
+      MetadataDeAccion.create("definirPropiedadEnRelacion", DefinirPropiedadEnRelacionAction.class)
+        .conElParametro("idDeRelacion","palabra")
+        .conElParametro("nombreDePropiedad","palabra")
+        .conElParametro("valorDePropiedad","palabra"),
+      MetadataDeAccion.create("quitarPropiedadEnRelacion", QuitarPropiedadDeNodoAction.class)
+        .conElParametro("idDeNodo","palabra")
+        .conElParametro("nombreDePropiedad","palabra"),
+      MetadataDeAccion.create("quitarPropiedadEnRelacion", QuitarPropiedadDeRelacionAction.class)
+        .conElParametro("idDeRelacion","palabra")
+        .conElParametro("nombreDePropiedad","palabra")
     );
   }
 

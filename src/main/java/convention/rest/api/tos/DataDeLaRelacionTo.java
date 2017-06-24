@@ -9,6 +9,7 @@ public class DataDeLaRelacionTo {
   private String source;
   private String target;
   private String tipoDeRelacion;
+  private String nombre;
 
   public String getId() {
     return id;
@@ -42,12 +43,21 @@ public class DataDeLaRelacionTo {
     this.target = target;
   }
 
-  public static DataDeLaRelacionTo create(Long idDeOrigen, String tipoRelacion, Long idDestino) {
+  public String getNombre() {
+    return nombre;
+  }
+
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public static DataDeLaRelacionTo create(Long idDeRelacion, Long idDeOrigen, String tipoRelacion, Long idDestino) {
     DataDeLaRelacionTo relacionTo = new DataDeLaRelacionTo();
-    relacionTo.id = "e"+idDeOrigen+"_"+idDestino;
+    relacionTo.id = "e"+idDeOrigen+"_"+idDestino; // Id artificial para el frontend
     relacionTo.source = Long.toString(idDeOrigen);
     relacionTo.target = Long.toString(idDestino);
     relacionTo.tipoDeRelacion = tipoRelacion;
+    relacionTo.nombre = idDeRelacion + ": " + tipoRelacion;
     return relacionTo;
   }
 
