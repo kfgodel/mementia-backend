@@ -3,10 +3,13 @@ package convention.action.meta;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.proact.model.meta.MetadataDeAccion;
 import ar.com.kfgodel.proact.model.meta.MetadataDeParametro;
+import ar.com.kfgodel.proact.model.meta.MetadataDeRetorno;
 import convention.action.basegrafo.*;
+import convention.action.debugging.EjecutarGroovyEnAplicacionAction;
 import convention.rest.api.tos.meta.MetadataDeAccionTo;
 import convention.rest.api.tos.meta.MetadataDeAccionesTo;
 import convention.rest.api.tos.meta.MetadataDeParametroTo;
+import convention.rest.api.tos.meta.MetadataDeRetornoTo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -57,18 +60,26 @@ public class ListarAccionesAction implements Function<Void, MetadataDeAccionesTo
         .conElParametro("nombreDePropiedad","palabra"),
       MetadataDeAccion.create("quitarPropiedadEnRelacion", QuitarPropiedadDeRelacionAction.class)
         .conElParametro("idDeRelacion","palabra")
-        .conElParametro("nombreDePropiedad","palabra")
+        .conElParametro("nombreDePropiedad","palabra"),
+      MetadataDeAccion.create("ejecutarGroovy", EjecutarGroovyEnAplicacionAction.class)
+        .conElParametro("codigo","texto")
+        .retornando("texto")
     );
   }
 
   private MetadataDeAccionTo convertirEnTo(MetadataDeAccion metadataDeAccion) {
     String nombreDeAccion = metadataDeAccion.getNombre();
     String recurso = metadataDeAccion.getRecurso();
-    MetadataDeAccionTo accionTo = MetadataDeAccionTo.create(nombreDeAccion, recurso);
+    MetadataDeRetornoTo retorno = convertirEnTo(metadataDeAccion.getRetorno());
+    MetadataDeAccionTo accionTo = MetadataDeAccionTo.create(nombreDeAccion, recurso, retorno);
     metadataDeAccion.getParametros().stream()
       .map(this::convertirEnTo)
       .forEach(accionTo::agregarParametro);
     return accionTo;
+  }
+
+  private MetadataDeRetornoTo convertirEnTo(MetadataDeRetorno retorno) {
+    return MetadataDeRetornoTo.create(retorno.getTipo());
   }
 
   private MetadataDeParametroTo convertirEnTo(MetadataDeParametro metadataDeParametro) {

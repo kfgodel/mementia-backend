@@ -15,17 +15,23 @@ public class MetadataDeAccion {
   private String nombre;
   private Class<? extends Function> claseDeLaAccion;
   private List<MetadataDeParametro> parametros;
+  private MetadataDeRetorno retorno;
 
   public static MetadataDeAccion create(String nombreAtribuido, Class<? extends Function> claseDeLaAccion) {
     MetadataDeAccion metadata = new MetadataDeAccion();
     metadata.nombre = nombreAtribuido;
     metadata.claseDeLaAccion = claseDeLaAccion;
     metadata.parametros = new ArrayList<>();
+    metadata.retorno = MetadataDeRetorno.nada();
     return metadata;
   }
 
   public String getNombre() {
     return nombre;
+  }
+
+  public MetadataDeRetorno getRetorno() {
+    return retorno;
   }
 
   public String getRecurso() {
@@ -47,6 +53,10 @@ public class MetadataDeAccion {
     return this;
   }
 
+  public MetadataDeAccion retornando(String tipo){
+    this.retorno = MetadataDeRetorno.create(tipo);
+    return this;
+  }
 
   public List<MetadataDeParametro> getParametros() {
     return parametros;

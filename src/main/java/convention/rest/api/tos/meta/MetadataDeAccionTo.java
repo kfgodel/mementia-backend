@@ -21,6 +21,8 @@ public class MetadataDeAccionTo {
   private List<MetadataDeParametroTo> parametros;
   public static final String parametros_FIELD = "parametros";
 
+  private MetadataDeRetornoTo retorno;
+  public static final String retorno_FIELD = "retorno";
 
   @Override
   public String toString() {
@@ -31,13 +33,22 @@ public class MetadataDeAccionTo {
       .toString();
   }
 
-  public static MetadataDeAccionTo create(String nombre, String recurso) {
+  public static MetadataDeAccionTo create(String nombre, String recurso, MetadataDeRetornoTo retorno) {
     MetadataDeAccionTo metadata = new MetadataDeAccionTo();
     metadata.id = nombre;
     metadata.nombre = nombre;
     metadata.recurso = recurso;
     metadata.parametros = new ArrayList<>();
+    metadata.retorno = retorno;
     return metadata;
+  }
+
+  public MetadataDeRetornoTo getRetorno() {
+    return retorno;
+  }
+
+  public void setRetorno(MetadataDeRetornoTo retorno) {
+    this.retorno = retorno;
   }
 
   public String getId() {
