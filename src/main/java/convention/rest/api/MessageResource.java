@@ -62,7 +62,7 @@ public class MessageResource {
   private Map<String, FrontendAction> inicializarAccionesPorRecurso() {
     Map<String, FrontendAction> accionesPorRecurso = new HashMap<>();
     List<FrontendAction> acciones = buscarAccionesEnElClasspath();
-    LOG.info("Found {} action types: {}", acciones.size(), acciones);
+    LOG.debug("Found {} action types: {}", acciones.size(), acciones);
     acciones.forEach((accion) -> {
       accionesPorRecurso.put(accion.getNombreDeRecurso(), accion);
     });

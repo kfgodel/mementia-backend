@@ -1,7 +1,6 @@
 package ar.com.kfgodel.proact.model.meta;
 
 import ar.com.kfgodel.nary.api.Nary;
-import convention.rest.api.tos.meta.MetadataDeParametroTo;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class MetadataDeAccion {
 
   private String nombre;
   private Class<? extends Function> claseDeLaAccion;
-  private List<MetadataDeParametroTo> parametros;
+  private List<MetadataDeParametro> parametros;
 
   public static MetadataDeAccion create(String nombreAtribuido, Class<? extends Function> claseDeLaAccion) {
     MetadataDeAccion metadata = new MetadataDeAccion();
@@ -44,12 +43,12 @@ public class MetadataDeAccion {
   }
 
   public MetadataDeAccion conElParametro(String nombre, String tipo){
-    this.parametros.add(MetadataDeParametroTo.create(nombre, tipo));
+    this.parametros.add(MetadataDeParametro.create(nombre, tipo));
     return this;
   }
 
 
-  public List<MetadataDeParametroTo> getParametros() {
+  public List<MetadataDeParametro> getParametros() {
     return parametros;
   }
 }

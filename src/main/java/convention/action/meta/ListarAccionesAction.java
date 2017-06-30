@@ -2,9 +2,11 @@ package convention.action.meta;
 
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.proact.model.meta.MetadataDeAccion;
+import ar.com.kfgodel.proact.model.meta.MetadataDeParametro;
 import convention.action.basegrafo.*;
 import convention.rest.api.tos.meta.MetadataDeAccionTo;
 import convention.rest.api.tos.meta.MetadataDeAccionesTo;
+import convention.rest.api.tos.meta.MetadataDeParametroTo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -63,9 +65,14 @@ public class ListarAccionesAction implements Function<Void, MetadataDeAccionesTo
     String nombreDeAccion = metadataDeAccion.getNombre();
     String recurso = metadataDeAccion.getRecurso();
     MetadataDeAccionTo accionTo = MetadataDeAccionTo.create(nombreDeAccion, recurso);
-    metadataDeAccion.getParametros()
+    metadataDeAccion.getParametros().stream()
+      .map(this::convertirEnTo)
       .forEach(accionTo::agregarParametro);
     return accionTo;
+  }
+
+  private MetadataDeParametroTo convertirEnTo(MetadataDeParametro metadataDeParametro) {
+    return MetadataDeParametroTo.create(metadataDeParametro.getNombre(), metadataDeParametro.getTipo());
   }
 
 }
