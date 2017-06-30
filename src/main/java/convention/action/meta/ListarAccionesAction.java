@@ -63,7 +63,7 @@ public class ListarAccionesAction implements Function<Void, MetadataDeAccionesTo
         .conElParametro("nombreDePropiedad","palabra"),
       MetadataDeAccion.create("ejecutarGroovy", EjecutarGroovyEnAplicacionAction.class)
         .conElParametro("codigo","texto")
-        .retornando("texto")
+        .retornando("ResultadoEjecucionGroovy")
     );
   }
 
