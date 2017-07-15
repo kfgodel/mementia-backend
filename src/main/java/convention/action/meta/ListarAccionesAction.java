@@ -7,6 +7,7 @@ import ar.com.kfgodel.proact.model.meta.MetadataDeRetorno;
 import convention.action.basegrafo.*;
 import convention.action.debugging.EjecutarGroovyEnAplicacionAction;
 import convention.action.meta.tos.MetadataDeAccionesTo;
+import convention.action.meta.tos.ParametrosParaListarAccionesTo;
 import convention.action.meta.tos.acciones.MetadataDeAccionTo;
 import convention.action.meta.tos.acciones.MetadataDeParametroTo;
 import convention.action.meta.tos.acciones.MetadataDeRetornoTo;
@@ -22,48 +23,61 @@ import java.util.stream.Collectors;
  * Created by kfgodel on 21/06/17.
  */
 @Resource(name = "LISTAR/acciones")
-public class ListarAccionesAction implements Function<Void, MetadataDeAccionesTo> {
+public class ListarAccionesAction implements Function<ParametrosParaListarAccionesTo, MetadataDeAccionesTo> {
+
+  public static final String BASE_DE_GRAFOS = "base-de-grafos";
 
   @Override
-  public MetadataDeAccionesTo apply(Void aVoid) {
-    List<MetadataDeAccionTo> acciones = describirAccionesDisponibles();
+  public MetadataDeAccionesTo apply(ParametrosParaListarAccionesTo parametros) {
+    List<MetadataDeAccionTo> acciones = describirAccionesDisponiblesSegun(parametros);
     return MetadataDeAccionesTo.create(acciones);
   }
 
-  private List<MetadataDeAccionTo> describirAccionesDisponibles() {
+  private List<MetadataDeAccionTo> describirAccionesDisponiblesSegun(ParametrosParaListarAccionesTo parametros) {
     Nary<MetadataDeAccion> acciones = recopilarAcciones();
-    return acciones.map(this::convertirEnTo)
+    return acciones
+      .filterNary(parametros::aplicaPara)
+      .map(this::convertirEnTo)
       .collect(Collectors.toList());
   }
 
   private Nary<MetadataDeAccion> recopilarAcciones() {
     return Nary.of(
-      MetadataDeAccion.create("crearNodo", CrearNodoAction.class),
+      MetadataDeAccion.create("crearNodo", CrearNodoAction.class)
+        .conLosTags(BASE_DE_GRAFOS),
       MetadataDeAccion.create("crearRelacion", CrearRelacionAction.class)
         .conElParametro("idNodoOrigen","palabra")
         .conElParametro("tipoDeRelacion","palabra")
-        .conElParametro("idNodoDestino","palabra"),
+        .conElParametro("idNodoDestino","palabra")
+        .conLosTags(BASE_DE_GRAFOS),
       MetadataDeAccion.create("borrarNodo", BorrarNodoAction.class)
-        .conElParametro("idBorrable","palabra"),
+        .conElParametro("idBorrable","palabra")
+        .conLosTags(BASE_DE_GRAFOS),
       MetadataDeAccion.create("borrarRelacion", BorrarRelacionAction.class)
-        .conElParametro("idBorrable","palabra"),
+        .conElParametro("idBorrable","palabra")
+        .conLosTags(BASE_DE_GRAFOS),
       MetadataDeAccion.create("definirPropiedadEnNodo", DefinirPropiedadEnNodoAction.class)
         .conElParametro("idDeNodo","palabra")
         .conElParametro("nombreDePropiedad","palabra")
-        .conElParametro("valorDePropiedad","palabra"),
+        .conElParametro("valorDePropiedad","palabra")
+        .conLosTags(BASE_DE_GRAFOS),
       MetadataDeAccion.create("definirPropiedadEnRelacion", DefinirPropiedadEnRelacionAction.class)
         .conElParametro("idDeRelacion","palabra")
         .conElParametro("nombreDePropiedad","palabra")
-        .conElParametro("valorDePropiedad","palabra"),
+        .conElParametro("valorDePropiedad","palabra")
+        .conLosTags(BASE_DE_GRAFOS),
       MetadataDeAccion.create("quitarPropiedadEnRelacion", QuitarPropiedadDeNodoAction.class)
         .conElParametro("idDeNodo","palabra")
-        .conElParametro("nombreDePropiedad","palabra"),
+        .conElParametro("nombreDePropiedad","palabra")
+        .conLosTags(BASE_DE_GRAFOS),
       MetadataDeAccion.create("quitarPropiedadEnRelacion", QuitarPropiedadDeRelacionAction.class)
         .conElParametro("idDeRelacion","palabra")
-        .conElParametro("nombreDePropiedad","palabra"),
+        .conElParametro("nombreDePropiedad","palabra")
+        .conLosTags(BASE_DE_GRAFOS),
       MetadataDeAccion.create("ejecutarGroovy", EjecutarGroovyEnAplicacionAction.class)
         .conElParametro("codigo","texto")
         .retornando("ResultadoEjecucionGroovy")
+        .conLosTags(BASE_DE_GRAFOS)
     );
   }
 

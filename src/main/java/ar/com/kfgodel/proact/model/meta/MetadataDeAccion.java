@@ -16,6 +16,7 @@ public class MetadataDeAccion {
   private Class<? extends Function> claseDeLaAccion;
   private List<MetadataDeParametro> parametros;
   private MetadataDeRetorno retorno;
+  private List<String> tags;
 
   public static MetadataDeAccion create(String nombreAtribuido, Class<? extends Function> claseDeLaAccion) {
     MetadataDeAccion metadata = new MetadataDeAccion();
@@ -23,6 +24,7 @@ public class MetadataDeAccion {
     metadata.claseDeLaAccion = claseDeLaAccion;
     metadata.parametros = new ArrayList<>();
     metadata.retorno = MetadataDeRetorno.nada();
+    metadata.tags = new ArrayList<>();
     return metadata;
   }
 
@@ -60,5 +62,15 @@ public class MetadataDeAccion {
 
   public List<MetadataDeParametro> getParametros() {
     return parametros;
+  }
+
+  public boolean tieneElTag(String tagAMatchear) {
+    return tags.stream().anyMatch(tagAMatchear::equals);
+  }
+
+  public MetadataDeAccion conLosTags(String... tags) {
+    Nary.create(tags)
+      .forEach(this.tags::add);
+    return this;
   }
 }
