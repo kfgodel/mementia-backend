@@ -11,6 +11,7 @@ import convention.action.meta.tos.ParametrosParaListarAccionesTo;
 import convention.action.meta.tos.acciones.MetadataDeAccionTo;
 import convention.action.meta.tos.acciones.MetadataDeParametroTo;
 import convention.action.meta.tos.acciones.MetadataDeRetornoTo;
+import convention.action.relacional.EjecutarSqlStatementAction;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -77,7 +78,10 @@ public class ListarAccionesAction implements Function<ParametrosParaListarAccion
       MetadataDeAccion.create("ejecutarGroovy", EjecutarGroovyEnAplicacionAction.class)
         .conElParametro("codigo","texto")
         .retornando("ResultadoEjecucionGroovy")
-        .conLosTags(BASE_DE_GRAFOS)
+        .conLosTags(BASE_DE_GRAFOS),
+      MetadataDeAccion.create("ejecutarSql", EjecutarSqlStatementAction.class)
+        .conElParametro("statement","texto")
+        .conLosTags("base-relacional")
     );
   }
 
