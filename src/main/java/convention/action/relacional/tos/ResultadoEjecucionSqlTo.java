@@ -1,22 +1,26 @@
 package convention.action.relacional.tos;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by kfgodel on 28/03/17.
  */
 public class ResultadoEjecucionSqlTo {
-  private String resultado;
 
-  public String getResultado() {
-    return resultado;
+  private List<Map<String,String>> resultados;
+
+  public List<Map<String, String>> getResultados() {
+    return resultados;
   }
 
-  public void setResultado(String resultado) {
-    this.resultado = resultado;
+  public void setResultados(List<Map<String, String>> resultados) {
+    this.resultados = resultados;
   }
 
-  public static ResultadoEjecucionSqlTo create(Object valor) {
+  public static ResultadoEjecucionSqlTo create(List<Map<String,String>> resultados) {
     ResultadoEjecucionSqlTo resultado = new ResultadoEjecucionSqlTo();
-    resultado.setResultado(String.valueOf(valor));
+    resultado.resultados = resultados;
     return resultado;
   }
 
