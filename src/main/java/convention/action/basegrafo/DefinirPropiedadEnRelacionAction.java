@@ -5,7 +5,7 @@ import ar.com.kfgodel.graphdb.api.concepts.GraphRelationship;
 import ar.com.kfgodel.graphdb.api.operations.GraphDbTransaction;
 import ar.com.kfgodel.graphdb.api.operations.find.GetRelationshipById;
 import ar.com.kfgodel.graphdb.api.operations.update.SetProperty;
-import convention.rest.api.tos.ParametrosParaDefinirPropiedadEnRelacion;
+import convention.action.basegrafo.tos.ParametrosParaDefinirPropiedadEnRelacionTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -16,9 +16,9 @@ import java.util.function.Function;
  * Created by kfgodel on 09/04/17.
  */
 @Resource(name = "SET/propiedad_de_relacion")
-public class DefinirPropiedadEnRelacionAction implements Function<ParametrosParaDefinirPropiedadEnRelacion, Void> {
+public class DefinirPropiedadEnRelacionAction implements Function<ParametrosParaDefinirPropiedadEnRelacionTo, Void> {
   @Override
-  public Void apply(ParametrosParaDefinirPropiedadEnRelacion parametros) {
+  public Void apply(ParametrosParaDefinirPropiedadEnRelacionTo parametros) {
     graphDb.ensureTransactionFor((transaction)->{
       String idDeRelacion = parametros.getIdDeRelacion();
       GraphRelationship relacion = buscarRelacionPorId(idDeRelacion, transaction);

@@ -10,7 +10,7 @@ import ar.com.kfgodel.orm.api.HibernateOrm;
 import ar.com.kfgodel.orm.api.config.DbCoordinates;
 import ar.com.kfgodel.orm.impl.HibernateFacade;
 import ar.com.kfgodel.proact.components.DatabaseAuthenticator;
-import ar.com.kfgodel.proact.config.ProceduresConfiguration;
+import ar.com.kfgodel.proact.config.MementiaConfiguration;
 import ar.com.kfgodel.transformbyconvention.api.TypeTransformer;
 import ar.com.kfgodel.transformbyconvention.impl.B2BTransformer;
 import ar.com.kfgodel.transformbyconvention.impl.config.TransformerConfigurationByConvention;
@@ -34,7 +34,8 @@ import java.io.File;
 public class MementiaApplication implements Aplicacion {
   public static Logger LOG = LoggerFactory.getLogger(MementiaApplication.class);
 
-  private ProceduresConfiguration config;
+  private MementiaConfiguration config;
+
   private DependencyInjector injector;
 
   @Override
@@ -57,7 +58,7 @@ public class MementiaApplication implements Aplicacion {
   }
 
   @Override
-  public ProceduresConfiguration getConfiguration() {
+  public MementiaConfiguration getConfiguration() {
     return config;
   }
 
@@ -66,7 +67,7 @@ public class MementiaApplication implements Aplicacion {
     return injector;
   }
 
-  public static Aplicacion create(ProceduresConfiguration config) {
+  public static Aplicacion create(MementiaConfiguration config) {
     MementiaApplication application = new MementiaApplication();
     application.config = config;
     return application;

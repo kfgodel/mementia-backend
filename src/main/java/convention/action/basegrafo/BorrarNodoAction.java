@@ -5,7 +5,7 @@ import ar.com.kfgodel.graphdb.api.concepts.GraphNode;
 import ar.com.kfgodel.graphdb.api.operations.GraphDbTransaction;
 import ar.com.kfgodel.graphdb.api.operations.find.GetNodeById;
 import ar.com.kfgodel.graphdb.api.operations.remove.DeleteNode;
-import convention.rest.api.tos.ReferenciaABorrable;
+import convention.action.basegrafo.tos.ReferenciaAElementoDelGrafoTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -16,14 +16,14 @@ import java.util.function.Function;
  * Created by kfgodel on 02/04/17.
  */
 @Resource(name = "BORRAR/nodo")
-public class BorrarNodoAction implements Function<ReferenciaABorrable, Void> {
+public class BorrarNodoAction implements Function<ReferenciaAElementoDelGrafoTo, Void> {
   @Override
-  public Void apply(ReferenciaABorrable referenciaABorrable) {
+  public Void apply(ReferenciaAElementoDelGrafoTo referenciaABorrable) {
     intentarBorrar(referenciaABorrable);
     return null;
   }
 
-  private void intentarBorrar(ReferenciaABorrable referenciaABorrable) {
+  private void intentarBorrar(ReferenciaAElementoDelGrafoTo referenciaABorrable) {
     graphDb.ensureTransactionFor((transaction)->{
       GraphNode nodo = buscarNodoPorId(referenciaABorrable.getIdBorrable(), transaction);
       DeleteNode.create(nodo).doWith(transaction);

@@ -3,8 +3,8 @@ package convention.action.users;
 import ar.com.kfgodel.appbyconvention.operation.api.ApplicationOperation;
 import ar.com.kfgodel.dependencies.api.DependencyInjector;
 import ar.com.kfgodel.orm.api.operations.basic.Save;
+import convention.action.users.tos.UserTo;
 import convention.persistent.Usuario;
-import convention.rest.api.tos.UserTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;

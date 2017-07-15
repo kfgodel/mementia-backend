@@ -5,7 +5,7 @@ import ar.com.kfgodel.graphdb.api.concepts.GraphRelationship;
 import ar.com.kfgodel.graphdb.api.operations.GraphDbTransaction;
 import ar.com.kfgodel.graphdb.api.operations.find.GetRelationshipById;
 import ar.com.kfgodel.graphdb.api.operations.remove.DeleteRelationship;
-import convention.rest.api.tos.ReferenciaABorrable;
+import convention.action.basegrafo.tos.ReferenciaAElementoDelGrafoTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -16,9 +16,9 @@ import java.util.function.Function;
  * Created by kfgodel on 02/04/17.
  */
 @Resource(name = "BORRAR/relacion")
-public class BorrarRelacionAction implements Function<ReferenciaABorrable, Void> {
+public class BorrarRelacionAction implements Function<ReferenciaAElementoDelGrafoTo, Void> {
   @Override
-  public Void apply(ReferenciaABorrable referenciaABorrable) {
+  public Void apply(ReferenciaAElementoDelGrafoTo referenciaABorrable) {
     graphDb.ensureTransactionFor((transaction)->{
       GraphRelationship relacion = buscarRelacionPorId(referenciaABorrable.getIdBorrable(), transaction);
       DeleteRelationship.create(relacion).doWith(transaction);

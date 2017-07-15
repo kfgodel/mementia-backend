@@ -1,8 +1,8 @@
 package convention.action.debugging;
 
 import ar.com.kfgodel.mementia.Aplicacion;
-import convention.rest.api.tos.PedidoDeEjecucionDeGroovy;
-import convention.rest.api.tos.ResultadoEjecucionGroovy;
+import convention.action.debugging.tos.PedidoDeEjecucionDeGroovyTo;
+import convention.action.debugging.tos.ResultadoEjecucionGroovyTo;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import groovy.lang.Script;
@@ -16,14 +16,14 @@ import java.util.function.Function;
  * Created by kfgodel on 14/11/16.
  */
 @Resource(name = "EJECUTAR/groovy")
-public class EjecutarGroovyEnAplicacionAction implements Function<PedidoDeEjecucionDeGroovy, ResultadoEjecucionGroovy> {
+public class EjecutarGroovyEnAplicacionAction implements Function<PedidoDeEjecucionDeGroovyTo, ResultadoEjecucionGroovyTo> {
 
   @Override
-  public ResultadoEjecucionGroovy apply(PedidoDeEjecucionDeGroovy pedido) {
+  public ResultadoEjecucionGroovyTo apply(PedidoDeEjecucionDeGroovyTo pedido) {
     String snippetGroovy = pedido.getCodigo();
     Script scriptGroovy = parsearComoScript(snippetGroovy);
     Object resultado = ejecutarScript(scriptGroovy);
-    return ResultadoEjecucionGroovy.create(resultado);
+    return ResultadoEjecucionGroovyTo.create(resultado);
   }
 
   private Object ejecutarScript(Script scriptGroovy) {

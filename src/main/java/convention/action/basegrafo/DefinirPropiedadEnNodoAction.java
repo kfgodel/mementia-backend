@@ -5,7 +5,7 @@ import ar.com.kfgodel.graphdb.api.concepts.GraphNode;
 import ar.com.kfgodel.graphdb.api.operations.GraphDbTransaction;
 import ar.com.kfgodel.graphdb.api.operations.find.GetNodeById;
 import ar.com.kfgodel.graphdb.api.operations.update.SetProperty;
-import convention.rest.api.tos.ParametrosParaDefinirPropiedadEnNodo;
+import convention.action.basegrafo.tos.ParametrosParaDefinirPropiedadEnNodoTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -16,9 +16,9 @@ import java.util.function.Function;
  * Created by kfgodel on 09/04/17.
  */
 @Resource(name = "SET/propiedad_de_nodo")
-public class DefinirPropiedadEnNodoAction implements Function<ParametrosParaDefinirPropiedadEnNodo, Void> {
+public class DefinirPropiedadEnNodoAction implements Function<ParametrosParaDefinirPropiedadEnNodoTo, Void> {
   @Override
-  public Void apply(ParametrosParaDefinirPropiedadEnNodo parametros) {
+  public Void apply(ParametrosParaDefinirPropiedadEnNodoTo parametros) {
     graphDb.ensureTransactionFor((transaction)->{
       String idDeNodo = parametros.getIdDeNodo();
       GraphNode nodo = buscarNodoPorId(idDeNodo, transaction);

@@ -6,8 +6,8 @@ import ar.com.kfgodel.graphdb.api.concepts.GraphRelationship;
 import ar.com.kfgodel.graphdb.api.operations.GraphDbTransaction;
 import ar.com.kfgodel.graphdb.api.operations.create.CreateRelationship;
 import ar.com.kfgodel.graphdb.api.operations.find.GetNodeById;
-import convention.rest.api.tos.ParametrosDeRelacion;
-import convention.rest.api.tos.ResultadoDeCrearNodo;
+import convention.action.basegrafo.tos.ParametrosDeRelacionTo;
+import convention.action.basegrafo.tos.ResultadoDeCrearReferenciableTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -18,9 +18,9 @@ import java.util.function.Function;
  * Created by kfgodel on 01/04/17.
  */
 @Resource(name = "CREAR/relacion")
-public class CrearRelacionAction implements Function<ParametrosDeRelacion, ResultadoDeCrearNodo> {
+public class CrearRelacionAction implements Function<ParametrosDeRelacionTo, ResultadoDeCrearReferenciableTo> {
   @Override
-  public ResultadoDeCrearNodo apply(ParametrosDeRelacion parametrosDeRelacion) {
+  public ResultadoDeCrearReferenciableTo apply(ParametrosDeRelacionTo parametrosDeRelacion) {
     String identificador = graphDb.ensureTransactionFor((transaction) -> {
       GraphNode origen = buscarNodoPorId(parametrosDeRelacion.getIdNodoOrigen(), transaction);
       GraphNode destino = buscarNodoPorId(parametrosDeRelacion.getIdNodoDestino(), transaction);
@@ -30,7 +30,7 @@ public class CrearRelacionAction implements Function<ParametrosDeRelacion, Resul
       String idAsignado = String.valueOf(relacion.getId());
       return idAsignado;
     });
-    return ResultadoDeCrearNodo.create(identificador);
+    return ResultadoDeCrearReferenciableTo.create(identificador);
   }
 
   private GraphNode buscarNodoPorId(String idDeNodo, GraphDbTransaction transaction) {

@@ -4,9 +4,9 @@ import ar.com.kfgodel.graphdb.api.GraphDb;
 import ar.com.kfgodel.graphdb.api.operations.GraphDbTransaction;
 import ar.com.kfgodel.graphdb.api.operations.find.GetAllNodes;
 import ar.com.kfgodel.graphdb.api.operations.find.GetAllRelationships;
-import convention.rest.api.tos.EstadoDeNodoTo;
-import convention.rest.api.tos.EstadoDeRelacionTo;
-import convention.rest.api.tos.EstadoDelGrafoTo;
+import convention.action.basegrafo.tos.EstadoDelGrafoTo;
+import convention.action.basegrafo.tos.estado.EstadoDeNodoTo;
+import convention.action.basegrafo.tos.estado.EstadoDeRelacionTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;

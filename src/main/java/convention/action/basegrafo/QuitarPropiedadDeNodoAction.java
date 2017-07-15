@@ -5,7 +5,7 @@ import ar.com.kfgodel.graphdb.api.concepts.GraphNode;
 import ar.com.kfgodel.graphdb.api.operations.GraphDbTransaction;
 import ar.com.kfgodel.graphdb.api.operations.find.GetNodeById;
 import ar.com.kfgodel.graphdb.api.operations.remove.RemoveProperty;
-import convention.rest.api.tos.ParametrosParaQuitarPropiedadDeNodo;
+import convention.action.basegrafo.tos.ParametrosParaQuitarPropiedadDeNodoTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -16,9 +16,9 @@ import java.util.function.Function;
  * Created by kfgodel on 09/04/17.
  */
 @Resource(name = "QUITAR/propiedad_de_nodo")
-public class QuitarPropiedadDeNodoAction implements Function<ParametrosParaQuitarPropiedadDeNodo, Void> {
+public class QuitarPropiedadDeNodoAction implements Function<ParametrosParaQuitarPropiedadDeNodoTo, Void> {
   @Override
-  public Void apply(ParametrosParaQuitarPropiedadDeNodo parametros) {
+  public Void apply(ParametrosParaQuitarPropiedadDeNodoTo parametros) {
     graphDb.ensureTransactionFor((transaction)->{
       String idDeNodo = parametros.getIdDeNodo();
       GraphNode nodo = buscarNodoPorId(idDeNodo, transaction);

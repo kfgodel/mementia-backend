@@ -4,7 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.proact.config.DevelopmentConfig;
 import ar.com.kfgodel.proact.config.HerokuPriorityConfigSelector;
-import ar.com.kfgodel.proact.config.ProceduresConfiguration;
+import ar.com.kfgodel.proact.config.MementiaConfiguration;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +21,7 @@ public class ConfigurationSelectorTest extends JavaSpec<ProceduresTestContext> {
       context().selector(HerokuPriorityConfigSelector::create);
 
       it("picks the development config if no heroku environment variable is defined",()->{
-        ProceduresConfiguration configuration = context().selector().selectConfig();
+        MementiaConfiguration configuration = context().selector().selectConfig();
 
         assertThat(configuration).isInstanceOf(DevelopmentConfig.class);
       });

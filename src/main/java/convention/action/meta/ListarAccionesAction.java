@@ -6,10 +6,10 @@ import ar.com.kfgodel.proact.model.meta.MetadataDeParametro;
 import ar.com.kfgodel.proact.model.meta.MetadataDeRetorno;
 import convention.action.basegrafo.*;
 import convention.action.debugging.EjecutarGroovyEnAplicacionAction;
-import convention.rest.api.tos.meta.MetadataDeAccionTo;
-import convention.rest.api.tos.meta.MetadataDeAccionesTo;
-import convention.rest.api.tos.meta.MetadataDeParametroTo;
-import convention.rest.api.tos.meta.MetadataDeRetornoTo;
+import convention.action.meta.tos.MetadataDeAccionesTo;
+import convention.action.meta.tos.acciones.MetadataDeAccionTo;
+import convention.action.meta.tos.acciones.MetadataDeParametroTo;
+import convention.action.meta.tos.acciones.MetadataDeRetornoTo;
 
 import javax.annotation.Resource;
 import java.util.List;

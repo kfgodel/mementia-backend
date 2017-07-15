@@ -8,7 +8,7 @@ import ar.com.kfgodel.orm.impl.config.ImmutableDbCoordinates;
  *
  * Created by kfgodel on 12/03/16.
  */
-public class DevelopmentConfig implements ProceduresConfiguration {
+public class DevelopmentConfig implements MementiaConfiguration {
 
   public static DevelopmentConfig create() {
     DevelopmentConfig config = new DevelopmentConfig();

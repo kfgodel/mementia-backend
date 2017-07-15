@@ -3,7 +3,7 @@ package convention.action.basegrafo;
 import ar.com.kfgodel.graphdb.api.GraphDb;
 import ar.com.kfgodel.graphdb.api.operations.find.GetResultRows;
 import com.google.common.collect.Lists;
-import convention.rest.api.tos.PedidoDeEjecucionDeQuery;
+import convention.action.basegrafo.tos.PedidoDeEjecucionDeQueryTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
  * Created by kfgodel on 14/11/16.
  */
 @Resource(name = "EJECUTAR/query")
-public class EjecutarQueryEnGrafoAction implements Function<PedidoDeEjecucionDeQuery, List<Map<String, String>>> {
+public class EjecutarQueryEnGrafoAction implements Function<PedidoDeEjecucionDeQueryTo, List<Map<String, String>>> {
 
   @Override
-  public List<Map<String, String>> apply(PedidoDeEjecucionDeQuery pedido) {
+  public List<Map<String, String>> apply(PedidoDeEjecucionDeQueryTo pedido) {
     String query = pedido.getQuery();
     try{
       List<Map<String, String>> resultados = graphDb.ensureTransactionFor((transaction) ->

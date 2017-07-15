@@ -3,9 +3,9 @@ package convention.action.users;
 import ar.com.kfgodel.appbyconvention.operation.api.ApplicationOperation;
 import ar.com.kfgodel.dependencies.api.DependencyInjector;
 import ar.com.kfgodel.orm.api.operations.basic.FindById;
+import convention.action.users.tos.PersistentIdReferenceTo;
+import convention.action.users.tos.UserTo;
 import convention.persistent.Usuario;
-import convention.rest.api.tos.IdReferenceTo;
-import convention.rest.api.tos.UserTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -17,10 +17,10 @@ import java.util.function.Function;
  * Created by kfgodel on 17/11/16.
  */
 @Resource(name = "GET/user")
-public class FindUserAction implements Function<IdReferenceTo, UserTo> {
+public class FindUserAction implements Function<PersistentIdReferenceTo, UserTo> {
 
   @Override
-  public UserTo apply(IdReferenceTo idReferenceTo) {
+  public UserTo apply(PersistentIdReferenceTo idReferenceTo) {
     return createOperation()
       .insideASession()
       .applying(FindById.create(Usuario.class, idReferenceTo.getId()))

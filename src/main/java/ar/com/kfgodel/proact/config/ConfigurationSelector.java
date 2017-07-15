@@ -9,5 +9,5 @@ public interface ConfigurationSelector {
    * Picks the best configuration for the application given the current environment
    * @return The configuration to use
    */
-  ProceduresConfiguration selectConfig();
+  MementiaConfiguration selectConfig();
 }

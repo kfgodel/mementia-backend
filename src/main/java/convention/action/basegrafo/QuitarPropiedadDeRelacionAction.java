@@ -5,7 +5,7 @@ import ar.com.kfgodel.graphdb.api.concepts.GraphRelationship;
 import ar.com.kfgodel.graphdb.api.operations.GraphDbTransaction;
 import ar.com.kfgodel.graphdb.api.operations.find.GetRelationshipById;
 import ar.com.kfgodel.graphdb.api.operations.remove.RemoveProperty;
-import convention.rest.api.tos.ParametrosParaQuitarPropiedadDeRelacion;
+import convention.action.basegrafo.tos.ParametrosParaQuitarPropiedadDeRelacionTo;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -16,9 +16,9 @@ import java.util.function.Function;
  * Created by kfgodel on 09/04/17.
  */
 @Resource(name = "QUITAR/propiedad_de_relacion")
-public class QuitarPropiedadDeRelacionAction implements Function<ParametrosParaQuitarPropiedadDeRelacion, Void> {
+public class QuitarPropiedadDeRelacionAction implements Function<ParametrosParaQuitarPropiedadDeRelacionTo, Void> {
   @Override
-  public Void apply(ParametrosParaQuitarPropiedadDeRelacion parametros) {
+  public Void apply(ParametrosParaQuitarPropiedadDeRelacionTo parametros) {
     graphDb.ensureTransactionFor((transaction)->{
       String idDeRelacion = parametros.getIdDeRelacion();
       GraphRelationship relacion = buscarRelacionPorId(idDeRelacion, transaction);
